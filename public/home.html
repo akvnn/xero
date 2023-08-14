@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>xero</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script
+      src="https://kit.fontawesome.com/41f23bddaa.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      !(function (t, e) {
+        var o, n, p, r
+        e.__SV ||
+          ((window.posthog = e),
+          (e._i = []),
+          (e.init = function (i, s, a) {
+            function g(t, e) {
+              var o = e.split('.')
+              2 == o.length && ((t = t[o[0]]), (e = o[1])),
+                (t[e] = function () {
+                  t.push([e].concat(Array.prototype.slice.call(arguments, 0)))
+                })
+            }
+            ;((p = t.createElement('script')).type = 'text/javascript'),
+              (p.async = !0),
+              (p.src = s.api_host + '/static/array.js'),
+              (r = t.getElementsByTagName('script')[0]).parentNode.insertBefore(
+                p,
+                r
+              )
+            var u = e
+            for (
+              void 0 !== a ? (u = e[a] = []) : (a = 'posthog'),
+                u.people = u.people || [],
+                u.toString = function (t) {
+                  var e = 'posthog'
+                  return (
+                    'posthog' !== a && (e += '.' + a), t || (e += ' (stub)'), e
+                  )
+                },
+                u.people.toString = function () {
+                  return u.toString(1) + '.people (stub)'
+                },
+                o =
+                  'capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys'.split(
+                    ' '
+                  ),
+                n = 0;
+              n < o.length;
+              n++
+            )
+              g(u, o[n])
+            e._i.push([i, s, a])
+          }),
+          (e.__SV = 1))
+      })(document, window.posthog || [])
+      posthog.init('phc_OFb7dBuC7gc9lnZf5oKBsJFYW3qKIksJzbPCp4sbeVL', {
+        api_host: 'https://app.posthog.com',
+      })
+    </script>
+  </head>
+  <body>
+    <div class="homeContainer">
+      <div class="postTweetHidden" id="postTweetDiv">
+        <a class="postTweetX" id="postTweetX"> X </a>
+
+        <textarea
+          name="postTweetTextArea"
+          id="postTweetTextArea"
+          cols="50"
+          rows="7"
+          class="postTweetInput"
+          placeholder="you don't have to hide it in your heart anymore.. what's happening? "
+        ></textarea>
+        <button class="btn postTweetButton" id="postTweetButton">Post</button>
+      </div>
+      <div class="postTweetHidden" id="postCommentDiv">
+        <a class="postTweetX" id="postCommentX"> X </a>
+
+        <textarea
+          name="postTweetTextArea"
+          id="postCommentTextArea"
+          cols="50"
+          rows="7"
+          class="postTweetInput"
+          placeholder="post your reply here.. "
+        ></textarea>
+        <button class="btn postTweetButton" id="postCommentButton">Post</button>
+      </div>
+      <div class="navbarContainer">
+        <navbar class="navbar">
+          <ul>
+            <li class="listItem" data-href="home">
+              <a class="navLink">
+                <i class="fa-solid fa-house-user"></i> Home</a
+              >
+            </li>
+            <li class="listItem" data-href="search">
+              <a class="navLink"
+                ><i class="fa-solid fa-magnifying-glass"></i> Search</a
+              >
+            </li>
+
+            <li class="listItem" data-href="messages">
+              <a class="navLink">
+                <i class="fa-regular fa-envelope"></i> Messages</a
+              >
+            </li>
+            <li class="listItem" data-href="profile">
+              <a class="navLink"><i class="fa-regular fa-user"></i> Profile</a>
+            </li>
+            <li class="listItem" data-href="settings">
+              <a class="navLink"><i class="fa-solid fa-bars"></i> Settings</a>
+            </li>
+          </ul>
+        </navbar>
+        <button class="btn navBtn" id="post">Post</button>
+        <div class="profileNavbar">
+          <img src="" alt="" class="profilePic" id="profilePic" />
+          <div class="profileName">
+            <h3 class="name" id="profileName"></h3>
+            <p class="username" id="profileUsername"></p>
+          </div>
+          <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+      <!-- <section class="section profilePageHidden" id="profilePage"></section>
+      <section class="section messagePageHidden" id="messagePage"></section> -->
+      <section class="section home" id="home">
+        <!-- messages page sample -->
+        <!-- <div class="messagesViewHidden">
+          <div class="messageProfile">
+            <div class="messageViewProfilePictureContainer">
+              <img
+                src="https://picsum.photos/200"
+                alt=""
+                class="messageViewProfilePicture"
+              />
+            </div>
+            <div class="messageViewInfo">
+              <div class="messageViewHeader">
+                <h3 class="messageViewName">John Doe</h3>
+                <p class="messageViewUsername">@johndoe</p>
+                <p class="messageViewDate">May 17</p>
+              </div>
+              <p class="lastMessage">Lorem ipsum dolor sit amet.</p>
+            </div>
+          </div>
+        </div>
+        <div class="messagesDetails">
+          <div class="messageDetails">
+            <div class="messageDetailsHeader">
+              <div class="messageDetailsProfilePictureContainer">
+                <img
+                  src="https://static.vecteezy.com/system/resources/previews/009/273/280/original/concept-of-loneliness-and-disappointment-in-love-sad-man-sitting-element-of-the-picture-is-decorated-by-nasa-free-photo.jpg"
+                  alt=""
+                  class="messageDetailsProfilePicture"
+                />
+              </div>
+              <div class="messageDetailsInfo">
+                <h3 class="messageDetailsName">John Doe</h3>
+                <p class="messageDetailsUsername">@johndoe</p>
+              </div>
+            </div>
+            <div class="messageDetailsMessages" id="messageDetailsMessages">
+              <div class="messageDetailsMessage ">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+              <div class="messageDetailsMessage">
+                <p class="messageDetailsMessageText">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Quisquam, voluptatum.
+                </p>
+                <p class="messageDetailsMessageTime">12:00</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="messageDetailsInput">
+            <textarea
+              name="messageDetailsInput"
+              id="messageDetailsInput"
+              cols="30"
+              rows="2"
+              class="messageDetailsInputText"
+              placeholder="Type your message here.."
+            ></textarea>
+            <button class="btn messageDetailsInputButton">
+              <-- font awesome arrow -->
+        <!-- <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>  -->
+
+        <!-- profile page sample -->
+        <!-- <div class="profileHeader">
+          <div class="backColumn">
+            <i class="fa-solid fa-arrow-left"></i>
+          </div>
+          <div class="profileBanner">
+            <img
+              src="https://picsum.photos/200"
+              alt=""
+              class="profileBannerPic"
+              id="profileBannerPic"
+            />
+          </div>
+          <div class="imgAndEdit">
+            <img
+              src="https://picsum.photos/200"
+              alt=""
+              class="mainProfilePic"
+              id="mainProfilePic"
+            />
+            <button class="btn editProfileButton" id="editProfileButton">
+              Edit Profile
+            </button>
+          </div>
+
+          <div class="mainProfileNameDiv">
+            <h3 class="mainProfileName" id="mainProfileName">Akvn</h3>
+            <p class="mainProfileUsername" id="mainProfileUsername">@ak</p>
+            <p class="bio" id="bio">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
+              recusandae sapiente cupiditate molestiae harum, deleniti quaerat
+              quisquam labore itaque vitae?
+            </p>
+          </div>
+          <div class="profileCount">
+            <div class="countItem">
+              <p class="countNumber" id="followingCount">0</p>
+              <p class="countText">Following</p>
+            </div>
+            <div class="countItem">
+              <p class="countNumber" id="followersCount">0</p>
+              <p class="countText">Followers</p>
+            </div>
+            <div class="countItem">
+              <p class="countNumber" id="tweetsCount">0</p>
+              <p class="countText">Tweets</p>
+            </div>
+          </div>
+          <div class="profileNavigationButtons">
+            <button
+              class="followingButton profileNavButton"
+              id="profileNavButtonPosts"
+            >
+              Posts
+            </button>
+            <button
+              class="followingButton profileNavButton"
+              id="profileNavButtonReplies"
+            >
+              Replies
+            </button>
+            <button
+              class="followingButton profileNavButton"
+              id="profileNavButtonLikes"
+            >
+              Likes
+            </button>
+          </div>
+        </div>
+        <div class="profileTweets" id="profileTweets"></div> -->
+        <!-- <h1 class="targetHeading">Home</h1>
+        <button class="followingButton">Following</button>
+        <div class="tweets" id="tweets"> -->
+        <!-- <div class="tweet">
+            <div class="tweetContent">
+              <div class="profileName">
+                <img
+                  src="https://picsum.photos/200"
+                  alt=""
+                  class="tweetProfilePic"
+                />
+                <h3 class="tweetName">John Doe</h3>
+                <p class="tweetUsername">@johndoe</p>
+                <p class="tweetTime">28m</p>
+              </div>
+              <div class="tweetText">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum,
+                amet consequuntur ipsam qui deserunt quod ex adipisci minus quos
+                a.
+              </div>
+              <div class="tweetChoices">
+                <p class="tweetChoice">
+                  <i class="fa-regular fa-comment"></i> 2
+                </p>
+                <p class="tweetChoice"><i class="fa-solid fa-retweet"></i> 7</p>
+                <p class="tweetChoice">
+                  <i class="fa-regular fa-heart"></i> 12
+                </p>
+              </div>
+              <div class="tweetCommentsHidden">
+                <div class="tweet">
+                  <div class="tweetContent">
+                    <div class="profileName">
+                      <img
+                        src="https://picsum.photos/100"
+                        alt=""
+                        class="tweetProfilePic"
+                      />
+                      <h3 class="tweetName">x x</h3>
+                      <p class="tweetUsername">@xx</p>
+                      <p class="tweetTime" dateCreated="">28m</p>
+                    </div>
+                    <div class="tweetText">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Rerum magni expl
+                    </div>
+                    <div class="tweetChoices">
+                      <p class="tweetChoice">
+                        <i class="fa-regular fa-comment"></i> 2
+                      </p>
+                      <p class="tweetChoice">
+                        <i class="fa-solid fa-retweet"></i> 7
+                      </p>
+                      <p class="tweetChoice">
+                        <i class="fa-regular fa-heart"></i> 12
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        <!-- <div class="tweet">
+            <div class="tweetContent">
+              <div class="profileName">
+                <img
+                  src="https://picsum.photos/100"
+                  alt=""
+                  class="tweetProfilePic"
+                />
+                <h3 class="tweetName">x x</h3>
+                <p class="tweetUsername">@xx</p>
+                <p class="tweetTime" dateCreated="">28m</p>
+              </div>
+              <div class="tweetText">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
+                magni explicabo esse obcaecati vero optio, odio deserunt,
+                cumque, dolor debitis reprehenderit beatae mollitia vel saepe
+                incidunt quis id sunt. Aperiam modi laudantium porro autem neque
+                deleniti optio, numquam eum, sint aliquam consequuntur,
+                assumenda quos nesciunt! Harum ad ut nobis explicabo accusantium
+                aliquam tempore suscipit, cupiditate culpa modi, quisquam
+                mollitia, enim vero? Ea ex officiis quia mollitia perferendis
+                doloribus numquam amet beatae quibusdam, blanditiis unde, at
+                explicabo rem ducimus tempore suscipit cumque est nam quod
+                corrupti? Voluptatum impedit, porro hic, eos, velit fugiat
+                voluptatem id et quibusdam numquam voluptas quisquam incidunt!
+                a.
+              </div>
+              <div class="tweetChoices">
+                <p class="tweetChoice">
+                  <i class="fa-regular fa-comment"></i> 2
+                </p>
+                <p class="tweetChoice"><i class="fa-solid fa-retweet"></i> 7</p>
+                <p class="tweetChoice">
+                  <i class="fa-regular fa-heart"></i> 12
+                </p>
+              </div>
+            </div>
+          </div> -->
+        <!-- </div> -->
+      </section>
+      <section class="section search">
+        <input
+          type="text"
+          placeholder="Search"
+          class="searchBarInput"
+          id="searchBarInput"
+        />
+        <div class="searchResults" id="searchResults">
+          <!-- <div class="searchResult">
+            <img src="https://picsum.photos/200" alt="" class="searchImg" />
+            <div class="searchName">John</div>
+            <div class="searchUsername">@jk</div>
+          </div>
+          <div class="searchResult">
+            <img src="https://picsum.photos/200" alt="" class="searchImg" />
+            <div class="searchName">John</div>
+            <div class="searchUsername">@jk</div>
+          </div> -->
+        </div>
+        <div class="whoToFollow">
+          <h1 class="whoToFollowHeading">Who To Follow?</h1>
+          <div class="suggestionAccount">
+            <img src="https://picsum.photos/200" alt="" class="suggestionImg" />
+            <h3 class="suggestionName">John Doe</h3>
+            <p class="suggestionUsername">@johndoe</p>
+            <button class="followButton">Follow</button>
+          </div>
+          <div class="suggestionAccount">
+            <img src="https://picsum.photos/200" alt="" class="suggestionImg" />
+            <h3 class="suggestionName">akvn</h3>
+            <p class="suggestionUsername">@akvn</p>
+            <button class="followButton">Follow</button>
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/home.js"></script>
+    <script src="/nav.js"></script>
+    <script src="/search.js"></script>
+    <script src="/socket.js"></script>
+  </body>
+</html>
