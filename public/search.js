@@ -9,6 +9,8 @@ searchBarInput.addEventListener('input', async (event) => {
     typingTimer = setTimeout(async () => {
       const searchInputValue = searchBarInput.value
       if (searchInputValue.length <= 0) {
+        const searchResultsContainer = document.getElementById('searchResults')
+        searchResultsContainer.innerHTML = '' // clear old search results
         return
       }
       const response = await fetch('/search', {

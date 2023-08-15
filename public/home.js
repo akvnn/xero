@@ -661,8 +661,15 @@ const handleMessages = async () => {
         messagesDetails.classList.add('messagesDetails')
         messagesDetails.classList.remove('messagesDetailsHidden')
         const messageDetails = document.getElementById(userId)
-        messageDetails.classList.remove('messageDetailsHidden')
-        messageDetails.classList.add('messageDetails')
+        const messageInput = document.getElementById(`messageInput${userId}`)
+        if (messageDetails.classList.contains('messageDetailsHidden')) {
+          messageDetails.classList.remove('messageDetailsHidden')
+          messageDetails.classList.add('messageDetails')
+        }
+        if (messageInput.classList.contains('messageDetailsInputHidden')) {
+          messageInput.classList.remove('messageDetailsInputHidden')
+          messageInput.classList.add('messageDetailsInput')
+        }
         //scroll down to latest message
         const messageDetailsMessagesElement = messageDetails.querySelector(
           '.messageDetailsMessages'
@@ -719,6 +726,7 @@ const handleMessages = async () => {
       messageDetailsMessages.classList.add('messageDetailsMessages')
       messageDetailsMessages.setAttribute('id', 'messageDetailsMessages')
       message.messages.forEach((convo) => {
+        //the appropriate variable name here should be singleMessage rather than convo
         const messageDetailsMessage = document.createElement('div')
         messageDetailsMessage.classList.add('messageDetailsMessage')
         const messageDetailsMessageText = document.createElement('p')
@@ -752,10 +760,18 @@ const handleMessages = async () => {
       })
       messageDetails.appendChild(messageDetailsMessages)
       const messageDetailsInput = document.createElement('div')
-      messageDetailsInput.classList.add('messageDetailsInput')
+      // messageDetailsInput.classList.add('messageDetailsInput') //given on message user profile click
+      messageDetailsInput.classList.add('messageDetailsInputHidden')
+      messageDetailsInput.setAttribute(
+        'id',
+        `messageInput${message.userDetails._id}`
+      ) //recepient id
       const messageDetailsInputTextArea = document.createElement('textarea')
       messageDetailsInputTextArea.classList.add('messageDetailsInputText')
-      messageDetailsInputTextArea.setAttribute('id', 'messageDetailsInput')
+      messageDetailsInputTextArea.setAttribute(
+        'id',
+        `messageDetailsInput${message.userDetails._id}` //specific messages do not have this as there is only one messageDetailsInput
+      )
       messageDetailsInputTextArea.setAttribute('name', 'messageDetailsInput')
       messageDetailsInputTextArea.setAttribute('rows', '2')
       messageDetailsInputTextArea.setAttribute('cols', '30')
@@ -763,6 +779,16 @@ const handleMessages = async () => {
         'placeholder',
         'type your message here ...'
       )
+      messageDetailsInputTextArea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault()
+          const parentElement = e.target.parentElement
+          const messageDetailsInputButton = parentElement.querySelector(
+            '#messageDetailsInputButton'
+          )
+          messageDetailsInputButton.click()
+        }
+      })
       const messageDetailsInputButton = document.createElement('button')
       messageDetailsInputButton.classList.add('btn')
       messageDetailsInputButton.classList.add('messageDetailsInputButton')
@@ -772,8 +798,9 @@ const handleMessages = async () => {
       messageDetailsInputButton.addEventListener('click', async (e) => {
         e.stopPropagation()
         const messageDetailsInput = document.getElementById(
-          'messageDetailsInput'
+          `messageDetailsInput${message.userDetails._id}`
         ).value
+        console.log(messageDetailsInput)
         if (messageDetailsInput.trim() == '') {
           return
         }
@@ -818,7 +845,9 @@ const handleMessages = async () => {
         messageDetailsMessage.appendChild(messageDetailsMessageTime)
         messageDetailsMessages.appendChild(messageDetailsMessage)
         messageDetailsMessage.scrollIntoView() // scroll to bottom
-        document.getElementById('messageDetailsInput').value = ''
+        document.getElementById(
+          `messageDetailsInput${message.userDetails._id}`
+        ).value = ''
       })
       messageDetailsInput.appendChild(messageDetailsInputTextArea)
       messageDetailsInput.appendChild(messageDetailsInputButton)
@@ -942,7 +971,7 @@ const getSpecificMessages = async (username) => {
   messageDetailsInput.classList.add('messageDetailsInput')
   const messageDetailsInputTextArea = document.createElement('textarea')
   messageDetailsInputTextArea.classList.add('messageDetailsInputText')
-  messageDetailsInputTextArea.setAttribute('id', 'messageDetailsInput')
+  messageDetailsInputTextArea.setAttribute('id', 'messageDetailsInput') //note that the id of the text area is different in handleMessages method as there is no need to use the recepient id here
   messageDetailsInputTextArea.setAttribute('name', 'messageDetailsInput')
   messageDetailsInputTextArea.setAttribute('rows', '2')
   messageDetailsInputTextArea.setAttribute('cols', '30')
@@ -950,6 +979,16 @@ const getSpecificMessages = async (username) => {
     'placeholder',
     'type your message here ...'
   )
+  messageDetailsInputTextArea.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      const parentElement = e.target.parentElement
+      const messageDetailsInputButton = parentElement.querySelector(
+        '#messageDetailsInputButton'
+      )
+      messageDetailsInputButton.click()
+    }
+  })
   const messageDetailsInputButton = document.createElement('button')
   messageDetailsInputButton.classList.add('btn')
   messageDetailsInputButton.classList.add('messageDetailsInputButton')
@@ -1309,6 +1348,7 @@ const goToMessages = (username = '') => {
   })
   window.dispatchEvent(popstateEvent)
 }
+window.goToMessages = goToMessages // used in socket.js
 // -----------------
 // update tweet timestamp
 const updateTimeStamp = () => {

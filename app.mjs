@@ -352,9 +352,9 @@ app.get('/getSpecificMesssages/:username', verifyToken, async (req, res) => {
         {
           $sort: { createdAtISO: -1 },
         },
-        {
-          $limit: 20,
-        },
+        // {
+        //   $limit: 20,
+        // },
         // {
         //   $addFields: {
         //     idObject: {
@@ -642,9 +642,6 @@ app.get('/getMessages', verifyToken, async (req, res) => {
         $sort: { createdAtISO: -1 },
       },
       {
-        $limit: 20,
-      },
-      {
         $group: {
           _id: {
             $cond: [{ $eq: ['$to', userId] }, '$from', '$to'], // if to is equal to userId, then return from, else return to
@@ -664,6 +661,9 @@ app.get('/getMessages', verifyToken, async (req, res) => {
         //   foreignField: '_id',
         //   as: 'userDetails',
         // }
+      },
+      {
+        $limit: 20, //20 conversations
       },
       {
         $addFields: {
@@ -731,7 +731,7 @@ app.post('/sendMessage', verifyToken, async (req, res) => {
       //not needed
       res.status(400).json({ status: false, message: 'User not found' })
     }
-    const message = {
+    let message = {
       to: to, // might change to ObjectId
       from: userId,
       content: content,
@@ -739,6 +739,15 @@ app.post('/sendMessage', verifyToken, async (req, res) => {
       createdAtISO: new Date().toISOString(),
     }
     await messageCollection.insertOne(message)
+    // add profile info to message before emitting it
+    message = {
+      ...message,
+      fromProfile: {
+        fullName: user.fullName,
+        username: user.username,
+        profilePicture: user.profilePicture,
+      },
+    }
     // socket.io
     io.to(`user:${to}`).emit('newMessage', message)
     // end of socket.io
@@ -1102,7 +1111,7 @@ app.post('/followOrUnfollow/:username', verifyToken, async (req, res) => {
 })
 app.post('/search', verifyToken, async (req, res) => {
   const userId = req.userId
-  const query = req.body.query
+  const query = req.body.query.replace('@', '')
   const user = await collection.findOne({ _id: new ObjectId(userId) })
   if (!user) {
     //not needed
@@ -1177,6 +1186,9 @@ app.post('/editProfile', verifyToken, async (req, res) => {
     status: true,
     message: 'Profile updated successfully',
   })
+})
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'lost.html'))
 })
 // -------------------
 // Socket.io

@@ -10,6 +10,9 @@ const signUp = async () => {
     if (password.length < 8) {
       throw new Error('Password must include more than 8 characters')
     }
+    if (!email.includes('@')) {
+      throw new Error('Please enter a valid email')
+    }
     const data = {
       fullName: fullName,
       username: username,
@@ -34,6 +37,7 @@ const signUp = async () => {
     setTimeout(() => {
       alertBox.style.display = 'none'
     }, 3000)
+    window.location.href = '/login'
   } catch (err) {
     console.error(err)
     const alertBox = document.getElementById('alertBox')
