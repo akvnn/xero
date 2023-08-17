@@ -1059,6 +1059,78 @@ const getSpecificMessages = async (username) => {
     lastMessageElement.scrollIntoView()
   }
 }
+const handleSettings = async () => {
+  //fetch profile info
+  const token = getCookie('token')
+  const response = await fetch('/getNavProfile', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  })
+  const data = await response.json()
+  //navbar profile
+  const userProfile = data.profile
+  const profilePic = document.getElementById('profilePic')
+  profilePic.src = userProfile.profilePicture
+  profilePic.alt = userProfile.fullName
+  profilePic.setAttribute('dataUserId', userProfile._id)
+  const name = document.getElementById('profileName')
+  name.innerText = userProfile.fullName
+  const profileUsername = document.getElementById('profileUsername')
+  profileUsername.innerText = userProfile.username
+}
+
+const unhidePasswordDiv = () => {
+  const passwordDiv = document.getElementById('passwordDiv')
+  if (passwordDiv.classList.contains('passwordDivHidden')) {
+    passwordDiv.classList.remove('passwordDivHidden')
+    passwordDiv.classList.add('passwordDiv')
+  }
+}
+const changePassword = async () => {
+  try {
+    const token = getCookie('token')
+    const oldPassword = document.getElementById('changePasswordOld').value
+    const newPassword = document.getElementById('changePasswordNew').value
+    if (oldPassword.trim() == '' || newPassword.trim() == '') {
+      throw new Error('Please fill in all fields')
+    }
+    if (oldPassword == newPassword) {
+      throw new Error('New password cannot be the same as old password')
+    }
+    if (newPassword.length < 8) {
+      throw new Error('Password must be at least 8 characters long')
+    }
+
+    const response = await fetch('/changePassword', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify({ oldPassword, newPassword }),
+    })
+    const data = await response.json()
+    if (data.status != true) {
+      throw new Error(data.message)
+    }
+    const passwordMessage = document.getElementById('passwordMessage')
+    passwordMessage.innerText = data.message
+    document.getElementById('changePasswordOld').value = ''
+    document.getElementById('changePasswordNew').value = ''
+  } catch (err) {
+    const passwordMessage = document.getElementById('passwordMessage')
+    passwordMessage.innerText = err.message
+  }
+}
+const logout = () => {
+  // delete cookie
+  document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+  // redirect to login page
+  window.location.href = '/login'
+}
 // fetch tweets
 document.addEventListener('DOMContentLoaded', async () => {
   // check what page we are on
@@ -1096,6 +1168,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         handleMessages()
       }
+    } catch (err) {
+      console.log(err)
+    }
+  } else if (page == 'settings') {
+    try {
+      console.log('settings page')
+      home.innerHTML =
+        '<div class="backColumn"> <i class="fa-solid fa-arrow-left" onclick="goHome()"></i> <h1 class="targetHeading">Settings</h1></div> <div class="settingsView" id="settingsView"><button class="followingButton" onclick="unhidePasswordDiv()">Change Password</button> <button class="followingButton" onclick="logout()">Logout</button><div class = "passwordDivHidden" id="passwordDiv"><input type="password"placeholder="old password"required id="changePasswordOld"/><input type="password" placeholder="new password" required id="changePasswordNew"/><button class="btn" onclick="changePassword()">Change Password</button><p id="passwordMessage" class="passwordMessage"></p> </div></div>'
+      handleSettings()
     } catch (err) {
       console.log(err)
     }
@@ -1148,6 +1229,15 @@ window.addEventListener('popstate', async (event) => {
       } else {
         handleMessages()
       }
+    } catch (err) {
+      console.log(err)
+    }
+  } else if (page == 'settings') {
+    try {
+      console.log('settings page')
+      home.innerHTML =
+        '<div class="backColumn"> <i class="fa-solid fa-arrow-left" onclick="goHome()"></i> <h1 class="targetHeading">Settings</h1></div> <div class="settingsView" id="settingsView"><button class="followingButton" onclick="unhidePasswordDiv()">Change Password</button> <button class="followingButton" onclick="logout()">Logout</button><div class = "passwordDivHidden" id="passwordDiv"><input type="password"placeholder="old password"required id="changePasswordOld"/><input type="password" placeholder="new password" required id="changePasswordNew"/><button class="btn" onclick="changePassword()">Change Password</button><p id="passwordMessage" class="passwordMessage"></p> </div></div>'
+      handleSettings()
     } catch (err) {
       console.log(err)
     }
@@ -1348,6 +1438,13 @@ const goToMessages = (username = '') => {
   })
   window.dispatchEvent(popstateEvent)
 }
+const goToSettings = () => {
+  window.history.pushState({ page: 'settings' }, 'settings', '/settings')
+  const popstateEvent = new PopStateEvent('popstate', {
+    state: { page: 'settings' },
+  })
+  window.dispatchEvent(popstateEvent)
+}
 window.goToMessages = goToMessages // used in socket.js
 // -----------------
 // update tweet timestamp
@@ -1388,7 +1485,7 @@ listItems.forEach((listItem) => {
         const searchBarInput = document.getElementById('searchBarInput')
         searchBarInput.focus()
       } else {
-        // to do settings
+        goToSettings()
       }
     })
   }

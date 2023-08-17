@@ -100,6 +100,9 @@ app.get('/signup', (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'))
 })
+app.get('/settings', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'home.html'))
+})
 app.post('/signup', async (req, res) => {
   const fullName = req.body.fullName
   const email = req.body.email
@@ -211,7 +214,7 @@ app.get('/getTweets', verifyToken, async (req, res) => {
           $sort: { createdAtISO: -1 },
         },
         {
-          $limit: 20,
+          $limit: 100,
         },
         {
           $lookup: {
@@ -1187,6 +1190,52 @@ app.post('/editProfile', verifyToken, async (req, res) => {
     message: 'Profile updated successfully',
   })
 })
+app.post('/changePassword', verifyToken, async (req, res) => {
+  const userId = req.userId
+  const oldPassword = req.body.oldPassword
+  const newPassword = req.body.newPassword
+  const user = await collection.findOne({ _id: new ObjectId(userId) })
+  if (!user) {
+    //not needed
+    res.status(400).json({ status: false, message: 'User not found' })
+    return
+  }
+  const isMatch = oldPassword === user.password //possible improvement: add hashing
+  if (!isMatch) {
+    res.status(400).json({ status: false, message: 'Wrong password' })
+    return
+  }
+  await collection.updateOne(
+    { _id: new ObjectId(userId) },
+    {
+      $set: {
+        password: newPassword,
+      },
+    }
+  )
+  res.status(200).json({
+    status: true,
+    message: 'Password changed successfully',
+  })
+})
+app.get('/getNavProfile', verifyToken, async (req, res) => {
+  const userId = req.userId
+  const user = await collection.findOne({ _id: new ObjectId(userId) })
+  if (!user) {
+    //not needed
+    res.status(400).json({ status: false, message: 'User not found' })
+    return
+  }
+  res.status(200).json({
+    status: true,
+    profile: {
+      fullName: user.fullName,
+      username: user.username,
+      profilePicture: user.profilePicture,
+      _id: user._id,
+    },
+  })
+})
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'lost.html'))
 })
@@ -1216,7 +1265,6 @@ io.on('connection', (socket) => {
     console.log(err)
   }
 })
-
 // Listening
 httpServer.listen(3000, () => {
   console.log('Server is listening on port 3000')
