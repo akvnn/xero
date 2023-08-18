@@ -72,9 +72,17 @@
         <input type="password" placeholder="Password" required id="password" />
         <button class="btn" id="signupbtn" type="submit">Sign Up</button>
       </form>
-      <p class="member">Already a member? <a id="loginLink"> Login </a></p>
+      <div class="loginLinkDiv">
+        <p class="member">
+          Already a member? <a id="loginLink" class="loginLink"> Login </a>
+        </p>
+        <p class="member">
+          Too lazy? <a id="demoLink" class="loginLink"> Use a demo account </a>
+        </p>
+      </div>
     </section>
-    <script src="signup.js"></script>
+    <script src="/signup.js"></script>
+    <script src="/handleLogin.js"></script>
     <script>
       document.getElementById('loginLink').onclick = function () {
         window.location.href = '/login'

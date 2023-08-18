@@ -1131,8 +1131,31 @@ const logout = () => {
   // redirect to login page
   window.location.href = '/login'
 }
-// fetch tweets
+
 document.addEventListener('DOMContentLoaded', async () => {
+  // small screen sizes alert message
+  const smallScreenAlert = () => {
+    const width = window.innerWidth
+    if (width < 1000) {
+      const isAlert = document.querySelector('.alert')
+      if (isAlert) {
+        return
+      }
+      const alert = document.createElement('div')
+      alert.classList.add('alert')
+      alert.innerHTML =
+        '<p>This website is not optimized for small screen sizes, please use a desktop</p>'
+      document.body.prepend(alert)
+    } else {
+      const isAlert = document.querySelector('.alert')
+      if (isAlert) {
+        isAlert.remove()
+      }
+    }
+  }
+  smallScreenAlert()
+  window.addEventListener('resize', smallScreenAlert)
+  //end of small screen sizes alert message
   // check what page we are on
   const url = window.location.href
   const urlSplit = url.split('/')

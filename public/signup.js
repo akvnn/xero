@@ -54,3 +54,9 @@ signupbtn.addEventListener('click', async (event) => {
   event.preventDefault()
   await signUp()
 })
+
+const demologin = document.getElementById('demoLink')
+demologin.addEventListener('click', async (event) => {
+  event.preventDefault()
+  await login('dd', '12345678', 'demo')
+})

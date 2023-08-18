@@ -88,13 +88,13 @@ a {
   display: none;
 }
 .member {
-  margin-top: 10rem;
   text-align: center;
   font-size: 1rem;
   font-weight: 600;
   color: #000;
   text-decoration: none;
   transition: all 0.3s;
+  margin-bottom: 1rem;
 }
 .member a {
   text-decoration: none;
@@ -137,9 +137,17 @@ a {
 .loginform {
   margin-top: 0;
 }
-#loginLink {
+.loginLink {
   cursor: pointer;
 }
+.loginLinkDiv {
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 .alertBox {
   font-family: 'Montserrat', sans-serif;
   font-weight: 100;
@@ -148,7 +156,7 @@ a {
   left: 1.25rem;
   width: 20%;
   padding: 1.2rem;
-  color: #ffffff;
+  color: #8a2be2;
   font-size: 1rem;
   border-radius: 0.3125rem;
   display: none;
@@ -166,6 +174,15 @@ a {
     left: 50%;
     transform: translateX(-50%);
   }
+}
+.alert {
+  display: block;
+  background-color: crimson;
+  color: #fff;
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 /* home / navbar */
 /* .homeHidden {
