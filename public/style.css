@@ -156,7 +156,7 @@ a {
   left: 1.25rem;
   width: 20%;
   padding: 1.2rem;
-  color: #8a2be2;
+  color: #fff;
   font-size: 1rem;
   border-radius: 0.3125rem;
   display: none;
@@ -534,6 +534,7 @@ a {
   margin-right: auto; /* to do */
   padding: 1rem;
   border-radius: 10px;
+  max-width: 70%;
 }
 .suggestionAccount {
   display: flex;

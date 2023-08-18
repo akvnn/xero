@@ -249,6 +249,28 @@ app.get('/getTweets', verifyToken, async (req, res) => {
         },
       ])
       .toArray()
+    // get 3 random users
+    const randomUsers = await collection
+      .aggregate([
+        {
+          $match: {
+            _id: { $nin: following },
+          },
+        },
+        {
+          $sample: { size: 3 },
+        },
+        {
+          $project: {
+            _id: 1,
+            fullName: 1,
+            username: 1,
+            profilePicture: 1,
+          },
+        },
+      ])
+      .toArray()
+
     res.status(200).json({
       status: true,
       tweets: tweets,
@@ -258,6 +280,7 @@ app.get('/getTweets', verifyToken, async (req, res) => {
         profilePicture: user.profilePicture,
         _id: user._id,
       },
+      randomUsers: randomUsers,
     })
   } catch (err) {
     res
@@ -477,6 +500,28 @@ app.get('/getProfile/:username', verifyToken, async (req, res) => {
     isFollowing = currentUser.following.includes(String(user._id))
     // console.log(isFollowing)
   }
+  // get 3 random users
+  const following = currentUser.following
+  const randomUsers = await collection
+    .aggregate([
+      {
+        $match: {
+          _id: { $nin: following },
+        },
+      },
+      {
+        $sample: { size: 3 },
+      },
+      {
+        $project: {
+          _id: 1,
+          fullName: 1,
+          username: 1,
+          profilePicture: 1,
+        },
+      },
+    ])
+    .toArray()
   res.status(200).json({
     status: true,
     tweets: tweets,
@@ -499,6 +544,7 @@ app.get('/getProfile/:username', verifyToken, async (req, res) => {
       sameUser: sameUser,
       isFollowing: isFollowing,
     },
+    randomUsers: randomUsers,
   })
 })
 app.get('/getProfileReplies/:username', verifyToken, async (req, res) => {
@@ -698,7 +744,29 @@ app.get('/getMessages', verifyToken, async (req, res) => {
       },
     ])
     .toArray()
-
+  // who To follow
+  const following = user.following
+  // get 3 random users
+  const randomUsers = await collection
+    .aggregate([
+      {
+        $match: {
+          _id: { $nin: following },
+        },
+      },
+      {
+        $sample: { size: 3 },
+      },
+      {
+        $project: {
+          _id: 1,
+          fullName: 1,
+          username: 1,
+          profilePicture: 1,
+        },
+      },
+    ])
+    .toArray()
   res.status(200).json({
     status: true,
     messages: messages,
@@ -708,6 +776,7 @@ app.get('/getMessages', verifyToken, async (req, res) => {
       profilePicture: user.profilePicture,
       _id: user._id,
     },
+    randomUsers: randomUsers,
   })
 })
 
@@ -1226,6 +1295,28 @@ app.get('/getNavProfile', verifyToken, async (req, res) => {
     res.status(400).json({ status: false, message: 'User not found' })
     return
   }
+  // get 3 random users
+  const following = user.following
+  const randomUsers = await collection
+    .aggregate([
+      {
+        $match: {
+          _id: { $nin: following },
+        },
+      },
+      {
+        $sample: { size: 3 },
+      },
+      {
+        $project: {
+          _id: 1,
+          fullName: 1,
+          username: 1,
+          profilePicture: 1,
+        },
+      },
+    ])
+    .toArray()
   res.status(200).json({
     status: true,
     profile: {
@@ -1234,6 +1325,7 @@ app.get('/getNavProfile', verifyToken, async (req, res) => {
       profilePicture: user.profilePicture,
       _id: user._id,
     },
+    randomUsers: randomUsers,
   })
 })
 app.get('*', (req, res) => {

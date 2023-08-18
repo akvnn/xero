@@ -14,6 +14,41 @@ const getCookie = (name) => {
 }
 window.getCookie = getCookie
 
+//who to follow
+const handleRandomUsers = async (randomUsers) => {
+  const whoToFollow = document.getElementById('whoToFollow')
+  // if there are already suggestions, dont change them
+  if (whoToFollow.childElementCount > 1) {
+    return
+  }
+  whoToFollow.innerHTML = '<h1 class="whoToFollowHeading">Who To Follow?</h1>'
+  randomUsers.forEach((user) => {
+    const suggestionAccount = document.createElement('div')
+    suggestionAccount.classList.add('suggestionAccount')
+    const suggestionImg = document.createElement('img')
+    suggestionImg.classList.add('suggestionImg')
+    suggestionImg.src = user.profilePicture
+    const suggestionName = document.createElement('h3')
+    suggestionName.classList.add('suggestionName')
+    suggestionName.innerText = user.fullName
+    const suggestionUsername = document.createElement('p')
+    suggestionUsername.classList.add('suggestionUsername')
+    suggestionUsername.innerText = '@' + user.username
+    const suggestionNavigate = document.createElement('button')
+    suggestionNavigate.classList.add('followButton')
+    suggestionNavigate.innerText = 'Navigate'
+    suggestionNavigate.addEventListener('click', (e) => {
+      e.stopPropagation()
+      goToProfile(user.username)
+    })
+    suggestionAccount.appendChild(suggestionImg)
+    suggestionAccount.appendChild(suggestionName)
+    suggestionAccount.appendChild(suggestionUsername)
+    suggestionAccount.appendChild(suggestionNavigate)
+    whoToFollow.appendChild(suggestionAccount)
+  })
+}
+//end of who to follow
 // createTweet function
 const createTweet = (tweet) => {
   const tweetDiv = document.createElement('div')
@@ -177,7 +212,8 @@ const handleHome = async () => {
   name.innerText = userProfile.fullName
   const username = document.getElementById('profileUsername')
   username.innerText = userProfile.username
-
+  // who To follow
+  await handleRandomUsers(data.randomUsers)
   // tweets
   const tweets = data.tweets
   const tweetsContainer = document.getElementById('tweets')
@@ -237,6 +273,8 @@ const handleProfile = async (username, menu = 'Posts') => {
     name.innerText = userProfile.fullName
     const profileUsername = document.getElementById('profileUsername')
     profileUsername.innerText = userProfile.username
+    // who To follow
+    await handleRandomUsers(data.randomUsers)
     // user profile
     const profileBanner = document.createElement('div')
     profileBanner.classList.add('profileBanner')
@@ -605,6 +643,8 @@ const handleMessages = async () => {
     name.innerText = userProfile.fullName
     const profileUsername = document.getElementById('profileUsername')
     profileUsername.innerText = userProfile.username
+    // who To follow
+    await handleRandomUsers(data.randomUsers)
     // messagesView
     const messagesView = document.getElementById('messagesView')
     if (messagesView.classList.contains('messagesViewHidden')) {
@@ -1080,6 +1120,8 @@ const handleSettings = async () => {
   name.innerText = userProfile.fullName
   const profileUsername = document.getElementById('profileUsername')
   profileUsername.innerText = userProfile.username
+  // who To follow
+  await handleRandomUsers(data.randomUsers)
 }
 
 const unhidePasswordDiv = () => {
