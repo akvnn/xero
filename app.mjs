@@ -118,6 +118,23 @@ app.post('/signup', async (req, res) => {
     res.status(400).json({ status: false, message: 'Email already exists' })
     return
   }
+  if (password.length < 8) {
+    res.status(400).json({
+      status: false,
+      message: 'Password must be at least 8 characters',
+    })
+    return
+  }
+  const specialCharacters = '/*&^%$# \\'
+  for (let i = 0; i < specialCharacters.length; i++) {
+    if (username.includes(specialCharacters[i])) {
+      res.status(400).json({
+        status: false,
+        message: 'Username cannot contain special characters or whitespace',
+      })
+      return
+    }
+  }
   const user = {
     fullName: fullName,
     email: email,
@@ -1242,6 +1259,16 @@ app.post('/editProfile', verifyToken, async (req, res) => {
     res.status(400).json({ status: false, message: 'Username is taken' })
     return
   }
+  const specialCharacters = '/*&^%$# \\'
+  for (let i = 0; i < specialCharacters.length; i++) {
+    if (username.includes(specialCharacters[i])) {
+      res.status(400).json({
+        status: false,
+        message: 'Username cannot contain special characters or whitespace',
+      })
+      return
+    }
+  }
   await collection.updateOne(
     { _id: new ObjectId(userId) },
     {
@@ -1272,6 +1299,13 @@ app.post('/changePassword', verifyToken, async (req, res) => {
   const isMatch = oldPassword === user.password //possible improvement: add hashing
   if (!isMatch) {
     res.status(400).json({ status: false, message: 'Wrong password' })
+    return
+  }
+  if (newPassword.length < 8) {
+    res.status(400).json({
+      status: false,
+      message: 'Password must be at least 8 characters',
+    })
     return
   }
   await collection.updateOne(
