@@ -228,7 +228,12 @@ app.get('/getTweets', verifyToken, async (req, res) => {
           },
         },
         {
-          $sort: { createdAtISO: -1 },
+          $addFields: {
+            datetime: { $toDate: '$createdAtISO' },
+          },
+        },
+        {
+          $sort: { datetime: -1 },
         },
         {
           $limit: 100,
@@ -323,7 +328,12 @@ app.get('/getTweetComments/:tweetId', verifyToken, async (req, res) => {
           },
         },
         {
-          $sort: { createdAtISO: -1 },
+          $addFields: {
+            datetime: { $toDate: '$createdAtISO' },
+          },
+        },
+        {
+          $sort: { datetime: -1 },
         },
         {
           $limit: 20,
@@ -393,7 +403,12 @@ app.get('/getSpecificMesssages/:username', verifyToken, async (req, res) => {
           },
         },
         {
-          $sort: { createdAtISO: -1 },
+          $addFields: {
+            datetime: { $toDate: '$createdAtISO' },
+          },
+        },
+        {
+          $sort: { datetime: -1 },
         },
         // {
         //   $limit: 20,
@@ -473,7 +488,12 @@ app.get('/getProfile/:username', verifyToken, async (req, res) => {
         },
       },
       {
-        $sort: { createdAtISO: -1 },
+        $addFields: {
+          datetime: { $toDate: '$createdAtISO' },
+        },
+      },
+      {
+        $sort: { datetime: -1 },
       },
       {
         $limit: 20,
@@ -581,9 +601,13 @@ app.get('/getProfileReplies/:username', verifyToken, async (req, res) => {
         },
       },
       {
-        $sort: { createdAtISO: -1 },
+        $addFields: {
+          datetime: { $toDate: '$createdAtISO' },
+        },
       },
-
+      {
+        $sort: { datetime: -1 },
+      },
       {
         $limit: 20,
       },
@@ -641,7 +665,12 @@ app.get('/getProfileLikes/:username', verifyToken, async (req, res) => {
         },
       },
       {
-        $sort: { createdAtISO: -1 },
+        $addFields: {
+          datetime: { $toDate: '$createdAtISO' },
+        },
+      },
+      {
+        $sort: { datetime: -1 },
       },
       {
         $limit: 20,
@@ -705,7 +734,9 @@ app.get('/getMessages', verifyToken, async (req, res) => {
         },
       },
       {
-        $sort: { createdAtISO: -1 },
+        $addFields: {
+          datetime: { $toDate: '$createdAtISO' },
+        },
       },
       {
         $group: {
@@ -715,21 +746,16 @@ app.get('/getMessages', verifyToken, async (req, res) => {
           messages: {
             $push: '$$ROOT',
           },
-
-          // lastMessage: {
-          //   $first: '$$ROOT',
-          // },
+          maxDatetime: {
+            $max: '$datetime',
+          },
         },
-
-        // $lookup: {
-        //   from: 'users',
-        //   localField: '_id',
-        //   foreignField: '_id',
-        //   as: 'userDetails',
-        // }
       },
       {
-        $limit: 20, //20 conversations
+        $sort: { maxDatetime: -1 }, // Sort conversations by maxDatetime
+      },
+      {
+        $limit: 50, //50 conversations
       },
       {
         $addFields: {
@@ -761,6 +787,13 @@ app.get('/getMessages', verifyToken, async (req, res) => {
       },
     ])
     .toArray()
+
+  // Sort the messages within each conversation in your application code
+  messages.forEach((conversation) => {
+    conversation.messages = conversation.messages.sort(
+      (a, b) => new Date(b.createdAtISO) - new Date(a.createdAtISO)
+    )
+  })
   // who To follow
   const following = user.following
   // get 3 random users
@@ -863,6 +896,7 @@ app.post('/postTweet', verifyToken, async (req, res) => {
       type: 'main',
       commentTo: 'null',
       createdAt: String(new Date()),
+      createdAtISO: new Date().toISOString(),
       likes: [],
       retweets: [],
       comments: [],
@@ -1219,7 +1253,12 @@ app.post('/search', verifyToken, async (req, res) => {
         },
       },
       {
-        $sort: { createdAtISO: -1 },
+        $addFields: {
+          datetime: { $toDate: '$createdAtISO' },
+        },
+      },
+      {
+        $sort: { datetime: -1 },
       },
       {
         $limit: 20,
@@ -1252,7 +1291,12 @@ app.post('/editProfile', verifyToken, async (req, res) => {
     res.status(200).json({ status: true, message: 'User not found' }) //change to 400 & true later
     return
   }
-
+  if (user.username == 'dd') {
+    res
+      .status(401)
+      .json({ status: false, message: 'Cannot edit profile for demo user' })
+    return
+  }
   //check if username is taken
   const usernameCheck = await collection.findOne({ username: username })
   if (usernameCheck && String(usernameCheck._id) != userId) {
@@ -1294,6 +1338,12 @@ app.post('/changePassword', verifyToken, async (req, res) => {
   if (!user) {
     //not needed
     res.status(400).json({ status: false, message: 'User not found' })
+    return
+  }
+  if (user.username == 'dd') {
+    res
+      .status(401)
+      .json({ status: false, message: 'Cannot change password for demo user' })
     return
   }
   const isMatch = oldPassword === user.password //possible improvement: add hashing

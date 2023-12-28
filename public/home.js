@@ -401,14 +401,20 @@ const handleProfile = async (username, menu = 'Posts') => {
               coverPicture: editProfileFormProfileBanner.value,
             }),
           })
-          const data = await response.json()
-          if (data.status != true) {
-            throw new Error(data.message)
+          try {
+            const data = await response.json()
+            if (data.status != true) {
+              throw new Error(data.message)
+            }
+          } catch (err) {
+            console.log(err)
+            alert(err.message) //to do
           }
           editProfile.remove()
           //refresh page
           goToProfile(usernameForRedirect) //optional
         })
+
         const editProfileCancelButton = document.createElement('button')
         editProfileCancelButton.classList.add('btn')
         editProfileCancelButton.classList.add('editProfileCancelButton')
@@ -653,7 +659,6 @@ const handleMessages = async () => {
     }
     const messages = data.messages
     messages.forEach((message) => {
-      // console.log(message)
       const messageProfile = document.createElement('div')
       messageProfile.classList.add('messageProfile')
       const messageViewProfilePictureContainer = document.createElement('div')
@@ -840,7 +845,7 @@ const handleMessages = async () => {
         const messageDetailsInput = document.getElementById(
           `messageDetailsInput${message.userDetails._id}`
         ).value
-        console.log(messageDetailsInput)
+        // console.log(messageDetailsInput)
         if (messageDetailsInput.trim() == '') {
           return
         }
