@@ -28,19 +28,9 @@ const Login = () => {
             id="usernameOremailOrphone"
           />
 
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            id="passwordLogin"
-          />
+          <input type="password" placeholder="Password" required id="passwordLogin" />
 
-          <button
-            className="btn"
-            onClick={handleSignIn}
-            id="loginbtn"
-            type="submit"
-          >
+          <button className="btn" onClick={handleSignIn} id="loginbtn" type="submit">
             Sign In
           </button>
         </form>

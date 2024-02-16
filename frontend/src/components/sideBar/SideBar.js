@@ -1,10 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  IoHome,
-  IoSearch,
-  IoPersonOutline,
-  IoSettingsOutline,
-} from "react-icons/io5";
+import { IoHome, IoSearch, IoPersonOutline, IoSettingsOutline } from "react-icons/io5";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import "./SideBar.css";

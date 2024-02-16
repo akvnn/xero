@@ -12,12 +12,7 @@ const Signup = () => {
           <input type="text" placeholder="Full name" required id="fullName" />
           <input type="text" placeholder="Username" required id="username" />
           <input type="email" placeholder="Email" required id="email" />
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            id="password"
-          />
+          <input type="password" placeholder="Password" required id="password" />
           <button className="btn" id="signupbtn" type="submit">
             Sign Up
           </button>
