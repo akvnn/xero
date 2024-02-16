@@ -1,0 +1,533 @@
+/* Spacings */
+.horizontal-spacing1{
+  margin: 0 0.75rem 0 1.5rem;
+}
+
+/* profile section */
+.profileHeader {
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+.backColumn {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.fa-arrow-left {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.profileBannerPic {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+.imgAndEdit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.mainProfilePic {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: absolute;
+  top: 27%;
+  left: 7%; 
+  border: 5px solid #fff;
+  z-index: 1000;
+}
+.mainProfilePic:hover {
+  transform: scale(1.1);
+}
+.editProfileButton {
+  margin-right: 3rem;
+  padding: 0.5rem 1.5rem;
+}
+.followUnfollowButton {
+  margin-right: 3rem;
+  padding: 0.5rem 1.5rem;
+}
+.directMessageButton {
+  margin-right: 3rem;
+  padding: 0.5rem 1.5rem;
+}
+.mainProfileNameDiv {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem;
+}
+.bio {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  width: auto;
+}
+.profileCount {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.countItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 1rem;
+  font-size: 0.8rem;
+}
+.countNumber {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 0.2rem;
+}
+.profileNavigationButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0rem;
+}
+.profileNavButton {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.profileNavButtonActive {
+  background-color: #ccc;
+}
+.editProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  width: 50vw;
+  height: 80vh;
+  background-color: #fff;
+  display: flex;
+  top: 50%;
+  left: 10%;
+  z-index: 10000;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.editProfileHeading {
+  margin: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.editProfileForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.editProfileButtons {
+  display: flex;
+}
+.editProfileInput {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 0.5rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+.editProfileFormBio {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 0.5rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  resize: none;
+}
+.editProfileCancelButton {
+  margin-left: 1rem;
+}
+
+/* messages section */
+.messagesView {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: auto;
+}
+.messagesViewHidden {
+  display: none;
+}
+.messageProfile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-bottom: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+.messageProfile:hover {
+  background-color: #ccc;
+}
+.messageViewProfilePictureContainer {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin: 1rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.messageViewProfilePicture {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.messageViewHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.messageViewInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.messageViewName {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+.messageViewUsername {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.messageViewDate {
+  font-size: 0.8rem;
+  font-weight: 300;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+.lastMessage {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.messagesDetailsHidden {
+  display: none;
+}
+.messageDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 38rem; 
+  width: 100%;
+}
+.messageDetailsHidden {
+  display: none;
+}
+.messageDetailsHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  position: fixed;
+  width: 41.5rem; 
+}
+.messageDetailsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.messageDetailsName {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+.messageDetailsUsername {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.messageDetailsProfilePictureContainer {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin: 1rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.messageDetailsProfilePicture {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  cursor: pointer;
+}
+.messageDetailsMessages {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+  margin-top: 7rem;
+  height: auto;
+}
+.messageDetailsMessage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  flex-shrink: 0;
+}
+.messageDetailsMessageText {
+  font-size: 0.8rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  padding: 0.5rem;
+  background-color: #e0e0e0;
+  width: 70%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+}
+.messageDetailsMessageTextSent {
+  margin-left: auto;
+  background-color: #8a2be2;
+  color: #fff;
+}
+.messageDetailsMessageTime {
+  font-size: 0.6rem;
+  font-weight: 300;
+}
+.messageDetailsMessageTimeReceived {
+  margin-right: auto;
+}
+.messageDetailsMessageTimeSent {
+  margin-left: auto;
+}
+.messageDetailsInput {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+.messageDetailsInputHidden {
+  display: none;
+}
+.messageDetailsInputText {
+  width: 90%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 300;
+  border-radius: 10px;
+  outline: none;
+  margin: 0.5rem;
+  margin-bottom: 0;
+  border: none;
+  resize: none;
+  background-color: #e0e0e0;
+  transition: all 0.3s;
+}
+.messageDetailsInputText:focus {
+  border: 1px solid #000;
+}
+.messageDetailsInputButton {
+  margin-right: 1rem;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-weight: 500;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: none;
+}
+.targetHeading {
+  margin: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.followingButton {
+  width: 100%;
+  padding: 1rem 2rem;
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  transition: all 0.3s;
+  cursor: default;
+}
+.followingButton:hover {
+  background-color: #ccc;
+}
+.tweets {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  position: relative;
+}
+.tweet {
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.tweet:hover {
+  background-color: #ccc;
+}
+.newTweet {
+  background-color: bisque;
+}
+.tweet:hover .tweetComments {
+  background-color: #f6f5f7;
+}
+.tweetLoading {
+  border-color: #000;
+}
+.tweetCommentsHidden {
+  display: none;
+}
+.tweetComments {
+  display: block;
+  width: 90%;
+  margin: 0 auto;
+}
+.tweetProfilePic {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+  transition: all 0.3s;
+}
+.tweetProfilePic:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+.profileName {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.tweetName {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-right: 0.5rem;
+}
+.tweetTime {
+  margin-left: auto;
+}
+.tweetText {
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+.tweetText img {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+.tweetChoices {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.tweetChoice {
+  margin-right: 1rem;
+  padding: 0.5rem;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.tweetChoiceActive {
+  color: #8a2be2;
+  transition: all 0.3s;
+  transform: scale(1.1);
+}
+.tweetChoice:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+.postTweetHidden {
+  display: none;
+}
+.postTweet {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  width: 50vw;
+  height: 50vh;
+  background-color: #fff;
+  display: flex;
+  top: 50%;
+  left: 10%;
+  z-index: 10000;
+  transform: translateY(-50%);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.postTweetX {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 1rem;
+  margin-right: auto;
+  cursor: pointer;
+}
+.postTweetInput {
+  width: 90%;
+  height: auto;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 300;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  margin: 1rem;
+  margin-bottom: 0;
+  border: none;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  resize: none;
+}
+.postTweetButton {
+  width: 50%;
+}

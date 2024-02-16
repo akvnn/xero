@@ -1,0 +1,15 @@
+.searchBarInput {
+  width: 45%; 
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: 300;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  outline: none;
+  margin: 1rem;
+  margin-bottom: 0;
+  margin-right: auto; 
+}
+.searchBarInput:focus {
+  border: 1px solid #000;
+}

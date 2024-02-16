@@ -1,0 +1,61 @@
+
+.whoToFollowHeading {
+  margin: 1rem;
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.whoToFollow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 1rem;
+  background-color: #f6f5f7;
+  margin-right: auto; 
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.suggestionAccount {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-bottom: 1px solid #ccc;
+  border-radius: 5px;
+}
+.suggestionAccount:hover {
+  transform: translateY(-5px);
+}
+.suggestionImg {
+  margin-right: 0rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+.suggestionName {
+  margin-right: 0.5rem;
+  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.suggestionUsername {
+  margin-right: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.followButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  font-weight: 500;
+  font-size: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.followButton:hover {
+  background-color: #ccc;
+}

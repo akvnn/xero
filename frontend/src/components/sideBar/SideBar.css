@@ -1,0 +1,92 @@
+.navbarContainer {
+  width: 30rem;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.navbar {
+  background-color: #fff;
+  display: flex;
+}
+.navBtn {
+  width: auto;
+  box-shadow: none;
+  border: none;
+  margin-right: 0.5rem;
+}
+.listItem {
+  width: auto;
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+li.listItem:hover {
+  background-color: #cfd1d7;
+  color: #fff !important;
+}
+.navLink {
+  text-decoration: none;
+  color: #000;
+  transition: all 0.3s;
+}
+.navLinkActive {
+  color: #8a2be2;
+}
+.hover-color {
+  color: #fff;
+}
+.profileNavbar {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+}
+.profileNavbar:hover {
+  background-color: #ccc;
+}
+.profilePic {
+  margin-left: 0.2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.profilePic:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+.name {
+  margin-left: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-right: 0.2rem;
+}
+.username {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.fa-chevron-down {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #000;
+  transition: all 0.3s;
+  margin-right: 0.2rem;
+}
+.icon-spacing {
+  margin-right: 0.3rem;
+}

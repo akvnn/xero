@@ -1,0 +1,26 @@
+.alertBox {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
+  position: fixed;
+  top: 1.25rem;
+  left: 1.25rem;
+  width: 20%;
+  padding: 1.2rem;
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 0.3125rem;
+  display: none;
+  z-index: 1000;
+  transform: translate(10%, 30%);
+  transition: transform 0.5s ease-in-out;
+}
+.loginLink {
+  cursor: pointer;
+}
+.loginLinkDiv {
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
